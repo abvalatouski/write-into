@@ -19,7 +19,7 @@ where
 {
     type Output = ();
 
-    fn write_into(self, sink: &mut impl io::Write) -> io::Result<()> {
+    fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
         leb128::write::unsigned(sink, self.0.into())?;
         Ok(())
     }
