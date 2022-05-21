@@ -45,6 +45,7 @@ pub trait WriteInto {
 
 /// An alias for [`WriteInto::write_into`] for writing `write_into(sink, Wrapper(...))` instead of
 /// `Wrapper(...).write_into(sink)`.
+#[inline]
 pub fn write_into<T: WriteInto>(sink: &mut impl io::Write, value: T) -> io::Result<T::Output> {
     value.write_into(sink)
 }
