@@ -1,0 +1,12 @@
+[package]
+name = "write-into"
+version = "0.1.0"
+authors = ["abvalatouski"]
+edition = "2021"
+description = "A trait to write things into `io::Write`."
+license = "MIT"
+
+[dependencies]
+
+[dev-dependencies]
+leb128 = "0.2.5"
