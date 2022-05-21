@@ -15,7 +15,7 @@ struct Leb128<T>(T);
 impl<T> WriteInto for Leb128<T>
 where
     // `leb128` crate uses `u64` and I'm too lazy to write multiple implementations (._.)
-    T: convert::Into<u64>
+    T: convert::Into<u64>,
 {
     type Output = ();
 

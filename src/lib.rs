@@ -1,5 +1,5 @@
 //! Defines a trait built on top of [`io::Write`] to write things _into_ it.
-//! 
+//!
 //! Instead of writing blanket implementations it its better to use wrappers
 //! with [`write_into`] function because there might be implementation conflicts
 //! (e.g. between [`WriteInto`] for [`u8`] and [`WriteInto`] for any
@@ -18,10 +18,10 @@
 //! impl<T> WriteInto for Leb128<T>
 //! where
 //!     // `leb128` crate uses `u64` and I'm too lazy to write multiple implementations (._.)
-//!     T: convert::Into<u64>
+//!     T: convert::Into<u64>,
 //! {
 //!     type Output = ();
-//! 
+//!
 //!     fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
 //!         leb128::write::unsigned(sink, self.0.into())?;
 //!         Ok(())
