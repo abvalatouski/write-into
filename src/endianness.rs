@@ -6,7 +6,7 @@ use std::io;
 /// # Example
 ///
 /// ```
-/// use write_into::{BigEndian, WriteInto, write_into};
+/// use write_into::{BigEndian, write_into};
 ///
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, BigEndian(0xCAFEBABEu32)).unwrap();
@@ -19,7 +19,7 @@ pub struct BigEndian<T>(pub T);
 /// # Example
 ///
 /// ```
-/// use write_into::{LittleEndian, WriteInto, write_into};
+/// use write_into::{LittleEndian, write_into};
 ///
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, LittleEndian(0xCAFEBABEu32)).unwrap();

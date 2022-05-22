@@ -1,15 +1,22 @@
 //! Defines a trait built on top of [`io::Write`] to write things _into_ it.
-//!
-//! Instead of writing blanket implementations it is better to use wrappers
-//! with [`write_into`] function because there might be implementation conflicts
-//! (e.g. between [`WriteInto`] for [`u8`] and [`WriteInto`] for any
-//! [`IntoIterator`]).
 //! 
+//! ```no_run
+//! use std::io;
+//! 
+//! trait WriteInto {
+//!     type Output;
+//!     fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output>;
+//! }
+//! ```
+//! 
+//! The crate also provides wrappers, such as [`BigEndian`] and [`LittleEndian`], to write values
+//! in particular formats.
+//!
 //! # Example
 //!
 //! ```
-//! use write_into::{BigEndian, WriteInto, write_into};
-//! 
+//! use write_into::{BigEndian, write_into};
+//!
 //! let mut buffer = Vec::new();
 //! write_into(&mut buffer, BigEndian(0xCAFEBABEu32)).unwrap();
 //! assert_eq!(&buffer, &[0xCA, 0xFE, 0xBA, 0xBE]);
