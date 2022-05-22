@@ -5,8 +5,8 @@ authors = ["abvalatouski"]
 edition = "2021"
 description = "A trait to write things into io::Write."
 license = "MIT"
-repository = "https://github.com/abvalatouski/write_into"
+repository = "https://github.com/abvalatouski/write-into"
 readme = "README.md"
-documentation = "https://docs.rs/write_into"
+documentation = "https://docs.rs/write-into"
 
 [dependencies]
