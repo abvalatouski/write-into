@@ -32,7 +32,7 @@
 //! write_into(&mut buffer, Leb128(1337u32)).unwrap();
 //! ```
 //!
-//! The also crate provides implementations for endianness-aware writing for primitive integral
+//! The crate also provides implementations for endianness-aware writing for primitive integral
 //! types (see [`BigEndian`] and [`LittleEndian`] wrappers).
 
 mod endianness;
