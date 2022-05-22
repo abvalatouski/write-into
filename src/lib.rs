@@ -4,36 +4,16 @@
 //! with [`write_into`] function because there might be implementation conflicts
 //! (e.g. between [`WriteInto`] for [`u8`] and [`WriteInto`] for any
 //! [`IntoIterator`]).
-//!
+//! 
 //! # Example
 //!
 //! ```
-//! use leb128;
-//! use std::{convert, io};
-//! use write_into::{WriteInto, write_into};
-//!
-//! // https://en.wikipedia.org/wiki/LEB128
-//! struct Leb128<T>(T);
-//!
-//! impl<T> WriteInto for Leb128<T>
-//! where
-//!     // `leb128` crate uses `u64` and I'm too lazy to write multiple implementations (._.)
-//!     T: convert::Into<u64>,
-//! {
-//!     type Output = ();
-//!
-//!     fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
-//!         leb128::write::unsigned(sink, self.0.into())?;
-//!         Ok(())
-//!     }
-//! }
-//!
-//! let mut buffer = Vec::new();
-//! write_into(&mut buffer, Leb128(1337u32)).unwrap();
-//! ```
+//! use write_into::{BigEndian, WriteInto, write_into};
 //! 
-//! The crate also provides implementations for endianness-aware writing for primitive integral
-//! types (see [`BigEndian`] and [`LittleEndian`] wrappers).
+//! let mut buffer = Vec::new();
+//! write_into(&mut buffer, BigEndian(0xCAFEBABEu32)).unwrap();
+//! assert_eq!(&buffer, &[0xCA, 0xFE, 0xBA, 0xBE]);
+//! ```
 
 mod endianness;
 
