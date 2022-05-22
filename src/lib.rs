@@ -3,7 +3,7 @@
 //! Instead of writing blanket implementations it is better to use wrappers
 //! with [`write_into`] function because there might be implementation conflicts
 //! (e.g. between [`WriteInto`] for [`u8`] and [`WriteInto`] for any
-//! [`std::iter::IntoIterator`]).
+//! [`IntoIterator`]).
 //!
 //! # Example
 //!
