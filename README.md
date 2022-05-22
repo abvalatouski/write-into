@@ -1,4 +1,4 @@
-# `write_into`
+# `write-into`
 
 Defines a trait built on top of `io::Write` to write things _into_ it.
 
