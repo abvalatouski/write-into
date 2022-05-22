@@ -1,6 +1,6 @@
 //! Defines a trait built on top of [`io::Write`] to write things _into_ it.
 //!
-//! Instead of writing blanket implementations it its better to use wrappers
+//! Instead of writing blanket implementations it is better to use wrappers
 //! with [`write_into`] function because there might be implementation conflicts
 //! (e.g. between [`WriteInto`] for [`u8`] and [`WriteInto`] for any
 //! [`std::iter::IntoIterator`]).
@@ -31,7 +31,7 @@
 //! let mut buffer = Vec::new();
 //! write_into(&mut buffer, Leb128(1337u32)).unwrap();
 //! ```
-//!
+//! 
 //! The crate also provides implementations for endianness-aware writing for primitive integral
 //! types (see [`BigEndian`] and [`LittleEndian`] wrappers).
 
