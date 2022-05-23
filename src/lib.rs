@@ -23,11 +23,13 @@
 //! ```
 
 mod endianness;
+mod plain;
 
 use std::io;
 
 pub use endianness::BigEndian;
 pub use endianness::LittleEndian;
+pub use plain::Plain;
 
 /// Writes value into I/O sink.
 pub trait WriteInto {
