@@ -3,10 +3,10 @@ use std::io;
 use std::mem::{size_of, MaybeUninit};
 
 /// Used to write values in LEB-128 format _(unsigned)_.
-/// 
+///
 /// ```
 /// use write_into::{Uleb128, write_into};
-/// 
+///
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, Uleb128(69u32)).unwrap();
 /// assert_eq!(&buffer, &[0x45]);
@@ -14,10 +14,10 @@ use std::mem::{size_of, MaybeUninit};
 pub struct Uleb128<T>(pub T);
 
 /// Used to write values in LEB-128 format _(signed)_.
-/// 
+///
 /// ```
 /// use write_into::{Sleb128, write_into};
-/// 
+///
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, Sleb128(-69i32)).unwrap();
 /// assert_eq!(&buffer, &[0xBB, 0x7F]);

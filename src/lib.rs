@@ -1,14 +1,14 @@
 //! Defines a trait built on top of [`io::Write`] to write things _into_ it.
-//! 
+//!
 //! ```no_run
 //! use std::io;
-//! 
+//!
 //! trait WriteInto {
 //!     type Output;
 //!     fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output>;
 //! }
 //! ```
-//! 
+//!
 //! The crate also provides wrappers, such as [`BigEndian`] and [`LittleEndian`], to write values
 //! in particular formats.
 //!
