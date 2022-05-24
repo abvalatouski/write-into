@@ -1,50 +1,50 @@
-use super::{WriteInto, write_into};
+use super::{write_into, WriteInto};
 use std::io;
 use std::mem::size_of;
 use std::slice::from_raw_parts;
 
 /// Used to write values as they are represented in memory.
-/// 
+///
 /// # Examples
 ///
 /// Writing struct into a sink.
-/// 
+///
 /// ```
 /// use write_into::{Plain, write_into};
-/// 
+///
 /// struct Rgba {
 ///     r: u8,
 ///     g: u8,
 ///     b: u8,
 ///     a: u8,
 /// }
-/// 
+///
 /// let color = Rgba { r: 0x18, g: 0x18, b: 0x18, a: 0xFF };
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, Plain(&color)).unwrap();
 /// assert_eq!(&buffer, &[0x18, 0x18, 0x18, 0xFF]);
 /// ```
-/// 
+///
 /// Writing array into a sink.
-/// 
+///
 /// ```
 /// use write_into::{Plain, write_into};
-/// 
+///
 /// let bytes: &[u8; 4] = b"\0asm";
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, Plain(bytes)).unwrap();
 /// assert_eq!(&buffer, b"\0asm");
 /// ```
-/// 
+///
 /// Writing slice into a sink (the crate also provide implementation for [`Plain<&str>`]).
-/// 
+///
 /// ```
 /// use write_into::{Plain, write_into};
-/// 
-/// let bytes: &[u8] = b"([java/lang/String;)V";
+///
+/// let bytes: &[u8] = b"([Ljava/lang/String;)V";
 /// let mut buffer = Vec::new();
 /// write_into(&mut buffer, Plain(bytes)).unwrap();
-/// assert_eq!(&buffer, b"([java/lang/String;)V");
+/// assert_eq!(&buffer, b"([Ljava/lang/String;)V");
 /// ```
 pub struct Plain<T>(pub T);
 
@@ -107,10 +107,10 @@ mod tests {
 
     #[test]
     fn write_str() {
-        let bytes = "([java/lang/String;)V";
+        let bytes = "([Ljava/lang/String;)V";
         let mut buffer = Vec::new();
         write_into(&mut buffer, Plain(bytes)).unwrap();
-        assert_eq!(&buffer, b"([java/lang/String;)V");
+        assert_eq!(&buffer, b"([Ljava/lang/String;)V");
     }
 
     #[test]
