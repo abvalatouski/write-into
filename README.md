@@ -31,3 +31,5 @@ assert_eq!(&buffer, &[0xCA, 0xFE, 0xBA, 0xBE]);
 | `BigEndian`    | ... in big endian byte order.          |
 | `LittleEndian` | ... in little endian byte order.       |
 | `Plain`        | ... as they are represented in memory. |
+| `Sleb128`      | ... in LEB-128 format _(signed)_.      |
+| `Uleb128`      | ... in LEB-128 format _(unsigned)_.    |

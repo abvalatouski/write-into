@@ -23,12 +23,15 @@
 //! ```
 
 mod endianness;
+mod leb128;
 mod plain;
 
 use std::io;
 
 pub use endianness::BigEndian;
 pub use endianness::LittleEndian;
+pub use leb128::Sleb128;
+pub use leb128::Uleb128;
 pub use plain::Plain;
 
 /// Writes value into I/O sink.

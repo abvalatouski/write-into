@@ -10,3 +10,6 @@ readme = "README.md"
 documentation = "https://docs.rs/write-into"
 
 [dependencies]
+
+[dev-dependencies]
+test-case = "2.1.0"
