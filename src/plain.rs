@@ -36,7 +36,7 @@ use std::slice::from_raw_parts;
 /// assert_eq!(&buffer, b"\0asm");
 /// ```
 ///
-/// Writing slice into a sink (the crate also provide implementation for [`Plain<&str>`]).
+/// Writing slice into a sink (the crate also provides implementation for [`Plain<&str>`]).
 ///
 /// ```
 /// use write_into::{Plain, write_into};
