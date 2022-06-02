@@ -35,6 +35,7 @@ pub use leb128::Sleb128;
 pub use leb128::Uleb128;
 pub use plain::Plain;
 pub use sequence::Sequence;
+pub use sequence::SizedSequence;
 
 /// Writes value into I/O sink.
 pub trait WriteInto {
