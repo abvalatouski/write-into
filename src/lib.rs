@@ -49,3 +49,24 @@ pub trait WriteInto {
 pub fn write_into<T: WriteInto>(sink: &mut impl io::Write, value: T) -> io::Result<T::Output> {
     value.write_into(sink)
 }
+
+/// Aligns position in the I/O sink to the given boundary and returns a new position.
+/// 
+/// # Example
+///
+/// ```
+/// use std::io;
+/// use write_into::{BigEndian, align_position, write_into};
+///
+/// let mut buffer = io::Cursor::new(Vec::new());
+/// write_into(&mut buffer, BigEndian(0xAABBu16)).unwrap();
+/// let aligned_position = align_position(&mut buffer, 4).unwrap();
+/// write_into(&mut buffer, BigEndian(0xCCDDu16)).unwrap();
+/// assert_eq!(aligned_position, 4);
+/// assert_eq!(buffer.get_ref(), &[0xAA, 0xBB, 0x00, 0x00, 0xCC, 0xDD]);
+/// ```
+pub fn align_position(sink: &mut impl io::Seek, boundary: u64) -> io::Result<u64> {
+    let position = sink.stream_position()?;
+    let alignment = (position + boundary) % boundary;
+    sink.seek(io::SeekFrom::Current(alignment as i64))
+}
