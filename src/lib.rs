@@ -25,6 +25,7 @@
 mod endianness;
 mod leb128;
 mod plain;
+mod sequence;
 
 use std::io;
 
@@ -33,6 +34,7 @@ pub use endianness::LittleEndian;
 pub use leb128::Sleb128;
 pub use leb128::Uleb128;
 pub use plain::Plain;
+pub use sequence::Sequence;
 
 /// Writes value into I/O sink.
 pub trait WriteInto {
@@ -51,7 +53,7 @@ pub fn write_into<T: WriteInto>(sink: &mut impl io::Write, value: T) -> io::Resu
 }
 
 /// Aligns position in the I/O sink to the given boundary and returns a new position.
-/// 
+///
 /// # Example
 ///
 /// ```
