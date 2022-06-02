@@ -66,6 +66,14 @@ impl<T> WriteInto for Plain<&T> {
     }
 }
 
+impl<T> WriteInto for &Plain<&T> {
+    type Output = ();
+
+    fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+        write_into(sink, Plain(self.0))
+    }
+}
+
 /// Transmutes arbitrary slice into a byte slice.
 impl<T> WriteInto for Plain<&[T]> {
     type Output = ();
@@ -84,12 +92,28 @@ impl<T> WriteInto for Plain<&[T]> {
     }
 }
 
+impl<T> WriteInto for &Plain<&[T]> {
+    type Output = ();
+
+    fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+        write_into(sink, Plain(self.0))
+    }
+}
+
 impl WriteInto for Plain<&str> {
     type Output = ();
 
     fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
         sink.write_all(self.0.as_bytes())?;
         Ok(())
+    }
+}
+
+impl WriteInto for &Plain<&str> {
+    type Output = ();
+
+    fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+        write_into(sink, Plain(self.0))
     }
 }
 

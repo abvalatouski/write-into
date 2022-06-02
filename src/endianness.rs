@@ -1,4 +1,4 @@
-use super::WriteInto;
+use super::{write_into, WriteInto};
 use std::io;
 
 /// Used to write values in big endian byte order.
@@ -28,7 +28,7 @@ pub struct BigEndian<T>(pub T);
 pub struct LittleEndian<T>(pub T);
 
 macro_rules! impl_write_into {
-    ($($wrapper:ident => { $($primitive:ident)* } )*) => {
+    ($($wrapper:ident => { $($primitive:ident)* } ),*,) => {
         $(
             $(
                 impl WriteInto for $wrapper<$primitive> {
@@ -38,6 +38,14 @@ macro_rules! impl_write_into {
                         let bytes = convertion!($wrapper, self.0);
                         sink.write_all(&bytes)?;
                         Ok(())
+                    }
+                }
+
+                impl WriteInto for &$wrapper<$primitive> {
+                    type Output = ();
+
+                    fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+                        write_into(sink, $wrapper(self.0))
                     }
                 }
             )*
@@ -59,10 +67,10 @@ impl_write_into! {
         i8 i16 i32 i64 i128 isize
         u8 u16 u32 u64 u128 usize
         f32 f64
-    }
+    },
     LittleEndian => {
         i8 i16 i32 i64 i128 isize
         u8 u16 u32 u64 u128 usize
         f32 f64
-    }
+    },
 }

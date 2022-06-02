@@ -1,9 +1,9 @@
-use super::WriteInto;
+use super::{write_into, WriteInto};
 use std::io;
 use std::mem::{size_of, MaybeUninit};
 
 /// Used to write values in LEB-128 format _(unsigned)_.
-/// 
+///
 /// # Example
 ///
 /// ```
@@ -16,7 +16,7 @@ use std::mem::{size_of, MaybeUninit};
 pub struct Uleb128<T>(pub T);
 
 /// Used to write values in LEB-128 format _(signed)_.
-/// 
+///
 /// # Example
 ///
 /// ```
@@ -79,6 +79,14 @@ macro_rules! impl_impl {
                 Ok(written)
             }
         }
+
+        impl WriteInto for &Uleb128<$primitive> {
+            type Output = usize;
+
+            fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+                write_into(sink, Uleb128(self.0))
+            }
+        }
     };
     (Sleb128, $primitive:ident) => {
         impl WriteInto for Sleb128<$primitive> {
@@ -122,6 +130,14 @@ macro_rules! impl_impl {
 
                 sink.write_all(bytes)?;
                 Ok(written)
+            }
+        }
+
+        impl WriteInto for &Sleb128<$primitive> {
+            type Output = usize;
+
+            fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+                write_into(sink, Sleb128(self.0))
             }
         }
     };
