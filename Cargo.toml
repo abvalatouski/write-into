@@ -1,6 +1,6 @@
 [package]
 name = "write-into"
-version = "0.3.7"
+version = "0.3.8"
 authors = ["abvalatouski"]
 edition = "2021"
 description = "A trait to write things into io::Write."
