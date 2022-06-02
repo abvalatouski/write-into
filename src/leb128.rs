@@ -3,6 +3,8 @@ use std::io;
 use std::mem::{size_of, MaybeUninit};
 
 /// Used to write values in LEB-128 format _(unsigned)_.
+/// 
+/// # Example
 ///
 /// ```
 /// use write_into::{Uleb128, write_into};
@@ -14,6 +16,8 @@ use std::mem::{size_of, MaybeUninit};
 pub struct Uleb128<T>(pub T);
 
 /// Used to write values in LEB-128 format _(signed)_.
+/// 
+/// # Example
 ///
 /// ```
 /// use write_into::{Sleb128, write_into};
