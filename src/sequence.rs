@@ -102,3 +102,19 @@ where
         Ok(written)
     }
 }
+
+/// Returns how many items was written.
+impl<T, S, F> WriteInto for &SizedSequence<T, S, F>
+where
+    T: Copy + IntoIterator,
+    T::Item: WriteInto,
+    T::IntoIter: ExactSizeIterator,
+    S: WriteInto,
+    F: Copy + FnOnce(usize) -> S,
+{
+    type Output = usize;
+
+    fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+        write_into(sink, SizedSequence(self.0, self.1))
+    }
+}
