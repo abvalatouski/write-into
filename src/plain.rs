@@ -117,6 +117,26 @@ impl WriteInto for &Plain<&str> {
     }
 }
 
+macro_rules! impl_write_into {
+    ($($primitive:ty)*) => {
+        $(
+            impl WriteInto for Plain<$primitive> {
+                type Output = ();
+
+                fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+                    write_into(sink, Plain(&self.0))
+                }
+            }
+        )*
+    };
+}
+
+impl_write_into! {
+    i8 i16 i32 i64 i128 isize
+    u8 u16 u32 u64 u128 usize
+    bool char f32 f64
+}
+
 #[cfg(test)]
 mod tests {
     use super::super::*;
@@ -144,24 +164,4 @@ mod tests {
         write_into(&mut buffer, Plain(bytes)).unwrap();
         assert_eq!(&buffer, &[0x01, 0x02, 0x03, 0x04]);
     }
-}
-
-macro_rules! impl_write_into {
-    ($($primitive:ty)*) => {
-        $(
-            impl WriteInto for Plain<$primitive> {
-                type Output = ();
-
-                fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
-                    write_into(sink, Plain(&self.0))
-                }
-            }
-        )*
-    };
-}
-
-impl_write_into! {
-    i8 i16 i32 i64 i128 isize
-    u8 u16 u32 u64 u128 usize
-    bool char f32 f64
 }
