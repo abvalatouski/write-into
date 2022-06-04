@@ -33,7 +33,7 @@ where
     fn write_into(self, sink: &mut impl io::Write) -> io::Result<usize> {
         let mut written = 0;
         for item in self.0 {
-            item.write_into(sink)?;
+            write_into(sink, item)?;
             written += 1;
         }
 
@@ -95,7 +95,7 @@ where
         write_into(sink, (self.0)(size))?;
         let mut written = 0;
         for item in iterator {
-            item.write_into(sink)?;
+            write_into(sink, item)?;
             written += 1;
         }
 
