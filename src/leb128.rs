@@ -146,18 +146,18 @@ macro_rules! impl_impl {
 impl_write_into! {
     Uleb128 => {
         u8 u16 u32 u64 u128 usize
-    }
+    },
     Sleb128 => {
         i8 i16 i32 i64 i128 isize
-    }
+    },
 }
 
 const fn max_leb128_size(bytes: usize) -> usize {
     let bits = bytes * 8;
     let septets = count_bits_in_chunks(bits, 7);
-    let bits_for_sevens = septets * 7;
+    let bits_for_septents = septets * 7;
     let bits_for_continutation_bits = septets * 1;
-    count_bits_in_chunks(bits_for_sevens + bits_for_continutation_bits, 8)
+    count_bits_in_chunks(bits_for_septents + bits_for_continutation_bits, 8)
 }
 
 const fn count_bits_in_chunks(bits: usize, chunk_size: usize) -> usize {
