@@ -1,5 +1,6 @@
 use super::{write_into, WriteInto};
 use std::io;
+use std::mem::size_of;
 
 /// Used to write values in big endian byte order.
 ///
@@ -66,11 +67,55 @@ impl_write_into! {
     BigEndian => {
         i8 i16 i32 i64 i128 isize
         u8 u16 u32 u64 u128 usize
-        f32 f64
+        bool char f32 f64
     },
     LittleEndian => {
         i8 i16 i32 i64 i128 isize
         u8 u16 u32 u64 u128 usize
-        f32 f64
+        bool char f32 f64
     },
+}
+
+trait EndiannessExts {
+    type Repr;
+    fn to_be_bytes(self) -> Self::Repr;
+    fn to_le_bytes(self) -> Self::Repr;
+}
+
+macro_rules! impl_endianness_exts {
+    ($($primitive:ident => $repr:ident),*,) => {
+        $(
+            impl EndiannessExts for $primitive {
+                type Repr = [u8; size_of::<Self>()];
+
+                fn to_be_bytes(self) -> Self::Repr {
+                    $repr::from(self).to_be_bytes()
+                }
+
+                fn to_le_bytes(self) -> Self::Repr {
+                    $repr::from(self).to_le_bytes()
+                }
+            } 
+        )*
+    };
+}
+
+impl_endianness_exts! {
+    char => u32,
+    bool => u8,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn char_be() {
+        assert_eq!('\x7F'.to_be_bytes(), 0x7Fu32.to_be_bytes());
+    }
+    
+    #[test]
+    fn char_le() {
+        assert_eq!('\x7F'.to_le_bytes(), 0x7Fu32.to_le_bytes());
+    }
 }
