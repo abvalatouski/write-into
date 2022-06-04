@@ -29,7 +29,7 @@ pub struct Uleb128<T>(pub T);
 pub struct Sleb128<T>(pub T);
 
 macro_rules! impl_write_into {
-    ($($wrapper:ident => { $($primitive:ident)* })*) => {
+    ($($wrapper:ident => { $($primitive:ident)* }),*,) => {
         $(
             $(
                 impl_impl!($wrapper, $primitive);
