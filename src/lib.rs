@@ -26,6 +26,7 @@ mod endianness;
 mod leb128;
 mod plain;
 mod sequence;
+mod sized;
 
 use std::io;
 
@@ -36,6 +37,7 @@ pub use leb128::Uleb128;
 pub use plain::Plain;
 pub use sequence::Sequence;
 pub use sequence::SizedSequence;
+pub use sized::Sized;
 
 /// Writes value into I/O sink.
 pub trait WriteInto {
