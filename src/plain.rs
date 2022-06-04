@@ -127,6 +127,14 @@ macro_rules! impl_write_into {
                     write_into(sink, Plain(&self.0))
                 }
             }
+
+            impl WriteInto for &Plain<$primitive> {
+                type Output = ();
+
+                fn write_into(self, sink: &mut impl io::Write) -> io::Result<Self::Output> {
+                    write_into(sink, Plain(&self.0))
+                }
+            }
         )*
     };
 }
