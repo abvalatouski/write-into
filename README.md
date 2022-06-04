@@ -26,12 +26,13 @@ assert_eq!(&buffer, &[0xCA, 0xFE, 0xBA, 0xBE]);
 
 ## Wrappers
 
-| Wrapper         | Used to write values...                  |
-| --------------- | ---------------------------------------- |
-| `BigEndian`     | ... in big endian byte order.            |
-| `LittleEndian`  | ... in little endian byte order.         |
-| `Plain`         | ... as they are represented in memory.   |
-| `Sequence`      | ... from `IntoIterator`.                 |
-| `SizedSequence` | ... from `IntoIterator` with known size. |
-| `Sleb128`       | ... in LEB-128 format _(signed)_.        |
-| `Uleb128`       | ... in LEB-128 format _(unsigned)_.      |
+| Wrapper         | Used to write values...                          |
+| --------------- | ------------------------------------------------ |
+| `BigEndian`     | ... in big endian byte order.                    |
+| `LittleEndian`  | ... in little endian byte order.                 |
+| `Plain`         | ... as they are represented in memory.           |
+| `Sequence`      | ... from `IntoIterator`.                         |
+| `Sized`         | ... prepended with size of their representation. |
+| `SizedSequence` | ... from `IntoIterator` with known size.         |
+| `Sleb128`       | ... in LEB-128 format _(signed)_.                |
+| `Uleb128`       | ... in LEB-128 format _(unsigned)_.              |
