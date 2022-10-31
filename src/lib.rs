@@ -72,6 +72,6 @@ pub fn write_into<T: WriteInto>(sink: &mut impl io::Write, value: T) -> io::Resu
 /// ```
 pub fn align_position(sink: &mut impl io::Seek, boundary: u64) -> io::Result<u64> {
     let position = sink.stream_position()?;
-    let alignment = (position + boundary) % boundary;
+    let alignment = boundary - (position + boundary) % boundary;
     sink.seek(io::SeekFrom::Current(alignment as i64))
 }
